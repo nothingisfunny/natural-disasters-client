@@ -20,11 +20,15 @@ class Wrapper extends Component{
       const state = this.props.states.find((element)=>{
         if(element.name === disaster.state){return element}
         })
+      const icon = this.props.disaster_icons.find((element)=>{
+        if(element.name === disaster.incidentType){return element}
+      })
+      console.log(icon)
        return(
       <Marker
   coordinates={state.coordinates}
   anchor="bottom">
-  <img src={"https://i.imgur.com/pLLxZMS.png"} style={{height: '15px'}}/>
+  <img src={icon.imgUrl} style={{height: '17px'}} alt={disaster.incidentType}/>
   </Marker>
     )}
   );
@@ -39,8 +43,8 @@ class Wrapper extends Component{
         <div className="col-9" style={{backgroundColor: "grey", padding: "0"}}>
           <Map 
       style="mapbox://styles/mapbox/dark-v9"
-      zoom ={[2.700019725398168]}
-      center={[-90.36957574368233, 42.732480262447524]}
+      zoom ={[2.600019725398168]}
+      center={[-90.36957574368233, 40.732480262447524]}
   containerStyle={{
     height: "100vh",
     width: "100vw",
