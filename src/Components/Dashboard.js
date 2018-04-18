@@ -1,24 +1,30 @@
 import React, {Component} from 'react'
-import test_data from '../test_data.json'
-import states from '../states.json'
+
+
+function formatDate(string){
+  const date = new Date(string)
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  return `${months[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()}`
+}
 
 export default class Dashboard extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      disasters: test_data
-    }
-  }
 
   render(){
-    const disasters = this.state.disasters.map((disaster, index) => {
-      return(<p style={{color: "white"}} key={index}>{disaster.incidentType}</p>)
+    const disasters = this.props.disasters.map((disaster, index) => {
+      return(
+        <div>
+          <p style={{color: "white"}} key={index}>
+            {disaster.incidentType} in {disaster.state}
+          </p>
+          <p>{formatDate(disaster.declarationDate)}</p>
+        </div>
+        )
     })
 
     return(
 
       <div>
-        <h2 style={{color: "white"}}>DANGER</h2>
+        <h4 style={{color: "white"}}>Natural Disasters USA</h4>
         {disasters}
       </div>
 

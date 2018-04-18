@@ -35,9 +35,9 @@ class Wrapper extends Component{
     }
     return(
     <div className="container-fluid">
-      <div className="row" style={{minHeight: "100vh"}}>
-        <div className="col-3" style={{backgroundColor: "black"}}>
-          <Dashboard />
+      <div className="row" style={{minHeight: "100vh" }}>
+        <div className="col-3" style={{backgroundColor: "black", overflow: "scroll!important"}}>
+          <Dashboard disasters={this.props.disasters}/>
 
         </div>
         <div className="col-9" style={{backgroundColor: "grey", padding: "0"}}>
