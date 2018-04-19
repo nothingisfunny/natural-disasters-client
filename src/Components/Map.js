@@ -57,15 +57,14 @@ export default class Map extends Component {
     return this.state.popupInfo && (
       <Popup tipSize={5}
         anchor="bottom-right"
-        longitude={this.state.popupInfo.longitude}
-        latitude={this.state.popupInfo.latitude}
+        longitude={this.state.popupInfo.state.longitude}
+        latitude={this.state.popupInfo.state.latitude}
         onClose={() => this.setState({popupInfo: null})}>
-        <p>{this.state.popupInfo.name}</p>
+        <h3>{this.state.popupInfo.state.fullName}</h3>
+        <p>{this.state.popupInfo.number} {this.state.popupInfo.disaster} incident(s)</p>
       </Popup>)
   }
   
-
-
 
   render() {
 
@@ -100,11 +99,14 @@ let markers = [];
         const icon = this.props.disaster_types.find((element)=>{
           if(element.name === incident){return element}
         })
+        const popupInfo = {state: state, disaster: incident, number: stateIncidents[key][incident]}
+        console.log(popupInfo)
+
         //return the marker
        return(
           <div>
             <Marker longitude={state.longitude} latitude={state.latitude}>
-              <CityPin img={icon.imgUrl} onClick={() => this.setState({popupInfo: state})}/>
+              <CityPin img={icon.imgUrl} onClick={() => this.setState({popupInfo: popupInfo})}/>
             </Marker>
             
        </div>

@@ -10,10 +10,6 @@ class Wrapper extends Component{
 
   render(){
 
-
-
-
-
     return(
     <div className="container-fluid">
       <div className="row" style={{minHeight: "100vh" }}>
