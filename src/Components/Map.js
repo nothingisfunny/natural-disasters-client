@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import MapGL, {Marker, Popup, NavigationControl} from 'react-map-gl';
-import CityPin from './CityPin'
+import StatePin from './StatePin'
 
 const TOKEN = 'pk.eyJ1Ijoibm90aGluZ2lzZnVubnkiLCJhIjoiY2pnMnp3Y3F6NjlweDJ3bWQ2ZXdzZnpnZSJ9.hRyi0M7G-rtEMFYOhNTp-g'; // Set your mapbox token here
 
@@ -59,17 +59,20 @@ export default class Map extends Component {
         anchor="bottom-right"
         longitude={this.state.popupInfo.state.longitude}
         latitude={this.state.popupInfo.state.latitude}
-        onClose={() => this.setState({popupInfo: null})}>
-        <h3>{this.state.popupInfo.state.fullName}</h3>
-        <p>{this.state.popupInfo.number} {this.state.popupInfo.disaster} incident(s)</p>
-      </Popup>)
+        onClose={() => this.setState({popupInfo: null})}
+        closeOnClick={true}>
+        <h4>{this.state.popupInfo.state.fullName}</h4>
+        <p>{this.state.popupInfo.incidentNumber} {this.state.popupInfo.disaster} incident(s)</p>
+      </Popup>
+
+      )
   }
   
 
   render() {
 
 
-      const stateIncidents = {}
+    const stateIncidents = {}
 
 let markers = [];
 
@@ -94,19 +97,19 @@ let markers = [];
       })
 
       let marker = Object.keys(stateIncidents[key]).map((incident)=>{
-        const value = stateIncidents[key][incident]
+        const incidentNumber = stateIncidents[key][incident]
         //find corresponding icon
         const icon = this.props.disaster_types.find((element)=>{
           if(element.name === incident){return element}
         })
-        const popupInfo = {state: state, disaster: incident, number: stateIncidents[key][incident]}
+        const popupInfo = {state: state, disaster: incident, incidentNumber: incidentNumber}
         console.log(popupInfo)
 
         //return the marker
        return(
           <div>
             <Marker longitude={state.longitude} latitude={state.latitude}>
-              <CityPin img={icon.imgUrl} onClick={() => this.setState({popupInfo: popupInfo})}/>
+              <StatePin img={icon.imgUrl} incidentNumber={incidentNumber} onClick={() => this.setState({popupInfo: popupInfo})}/>
             </Marker>
             
        </div>

@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import MapGL, {Marker, Popup} from 'react-map-gl';
 import Dashboard from './Dashboard'
 import Map from './Map'
-import CityPin from './CityPin'
+
 
 class Wrapper extends Component{
   //map amount of incidents by state
