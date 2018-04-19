@@ -14,34 +14,18 @@ for (var i = 1953; i <= 2018; i++) {
 
 
 export default class Dashboard extends Component{
-
-  componentDidMount(){
-    console.log("mounted")
-  }
+  
   render(){
    
     const disaster_types = this.props.disaster_types.map((disaster, index)=>{
       return(
-          <option key={index}>{disaster.name}</option>
+          <option key={index} value={disaster.name}>{disaster.name}</option>
         )
     })
 
      const years = yearOptions.map((year, index)=>{
       return(
-          <option key={index}>{year}</option>
-        )
-    })
-
-
-    
-    const disasters = this.props.disasters.map((disaster, index) => {
-      return(
-        <div key={index}>
-          <p style={{color: "white"}} >
-            {disaster.incidentType} in {disaster.state}
-          </p>
-          <p key={index}>{formatDate(disaster.declarationDate)}</p>
-        </div>
+          <option key={index} value={year}>{year}</option>
         )
     })
 
@@ -49,20 +33,29 @@ export default class Dashboard extends Component{
 
       <div>
         <h4 style={{color: "white"}}>Natural Disasters USA</h4>
-        <div className="row">
-          <p>Select Disaster</p>
-          <select className="custom-select" name="filterDisaster" onChange={(e)=>this.props.handleOnClick(e)}>
-            <option selected> </option>
-            {disaster_types}
-          </select>
-          <p>Select a Year</p>
-          <select className="custom-select" name="filterYear" onChange={(e)=>this.props.handleOnClick(e)}>
-            <option selected> </option>
-            {years}
-          </select>
+        <form className="form">
+          
+            <div className="form-group">
+            <label>Select a Disaster</label>
+              <div className="form-item">
+                <select className="custom-select" value={this.props.filterDisaster} name="filterDisaster" onChange={(e) => this.props.handleOnClick(e)}>
+                  <option value=" "></option>
+                  {disaster_types}
+                </select>
+              </div>
+              <label>Select a Year</label>
+              <div className="form-item">
+                <select className="custom-select" value={this.props.filterYear} name="filterYear" onChange={(e) => this.props.handleOnClick(e)}>
+                  <option value=" "></option>
+                  {years}
+
+                </select> 
+              </div>
+              <button className="btn btn-primary" onClick={(e)=>this.props.clearFilters(e)}>Clear Filters</button> 
+            </div>
+          
+          </form>
         
-        </div>
-        {disasters}
       </div>
 
     )

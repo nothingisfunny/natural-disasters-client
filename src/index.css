@@ -4,7 +4,3 @@ body {
   font-family: sans-serif;
 }
 
-.mapboxgl-popup-content{
-  opacity: 0.8;
-  padding-top: 15px;
-}

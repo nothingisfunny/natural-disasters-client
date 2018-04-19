@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {render} from 'react-dom';
 import MapGL, {Marker, Popup, NavigationControl} from 'react-map-gl';
 import StatePin from './StatePin'
 
@@ -96,19 +95,19 @@ let markers = [];
         if(element.name === key){return element}
       })
 
-      let marker = Object.keys(stateIncidents[key]).map((incident)=>{
+      let marker = Object.keys(stateIncidents[key]).map((incident, index)=>{
         const incidentNumber = stateIncidents[key][incident]
         //find corresponding icon
         const icon = this.props.disaster_types.find((element)=>{
           if(element.name === incident){return element}
         })
         const popupInfo = {state: state, disaster: incident, incidentNumber: incidentNumber}
-        console.log(popupInfo)
+       
 
         //return the marker
        return(
-          <div>
-            <Marker longitude={state.longitude} latitude={state.latitude}>
+          <div key={index}>
+            <Marker longitude={state.longitude} latitude={state.latitude} offsetTop={-10} offsetLeft={-5}>
               <StatePin img={icon.imgUrl} incidentNumber={incidentNumber} onClick={() => this.setState({popupInfo: popupInfo})}/>
             </Marker>
             
@@ -129,8 +128,6 @@ let markers = [];
         mapStyle="mapbox://styles/mapbox/dark-v9"
         onViewportChange={this._updateViewport}
         mapboxApiAccessToken={TOKEN} >
-
-       
         {markers}
         {this.renderPopup()}
         <div className="nav" style={navStyle}>

@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
-import Wrapper from './Components/Wrapper'
 import test_data from './test_data.json'
 import states from './states.json'
 import disaster_types from './disaster_types.json'
+import Dashboard from './Components/Dashboard'
+import Map from './Components/Map'
 
-
+function fetchData(){
+  const query = this.createQuery(this.state.filterYear, this.state.filterDisaster)
+    if(this.state.filterYear !== "" || this.state.filterDisaster !== ""){
+      console.log('fetching')
+      fetch(`http://localhost:3000/api/disasters${query}`)
+      .then(response => response.json())
+      .then(data => {
+        const newState = Object.assign({}, this.state)
+        newState.disasters = data
+        this.setState(newState)
+      });
+    }
+}
 
 class App extends Component {
   constructor(props){
@@ -18,6 +31,7 @@ class App extends Component {
       filterDisaster: ""
     }
     this.handleOnClick = this.handleOnClick.bind(this)
+    this.clearFilters = this.clearFilters.bind(this)
   }
 
   handleOnClick(e){
@@ -28,6 +42,29 @@ class App extends Component {
       newState
     )
   }
+
+  clearFilters(e){
+    e.preventDefault()
+    this.setState({
+      filterYear: "",
+      filterDisaster: "",
+      disaster: []
+    })
+  }
+
+  fetchData(){
+  const query = this.createQuery(this.state.filterYear, this.state.filterDisaster)
+    if(this.state.filterYear !== "" || this.state.filterDisaster !== ""){
+      console.log('fetching')
+      fetch(`http://localhost:3000/api/disasters${query}`)
+      .then(response => response.json())
+      .then(data => {
+        const newState = Object.assign({}, this.state)
+        newState.disasters = data
+        this.setState(newState)
+      });
+    }
+}
 
   createQuery(year = "", disaster = ""){
     let query = ""
@@ -49,27 +86,22 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
   // only update chart if the data has changed
   if (prevState.filterDisaster !== this.state.filterDisaster || prevState.filterYear !== this.state.filterYear ) {
-    console.log(this.state.filterYear, this.state.filterDisaster)
-    const query = this.createQuery(this.state.filterYear, this.state.filterDisaster)
-    if(this.state.filterYear !== "" || this.state.filterDisaster !== ""){
-      console.log('fetching')
-      fetch(`http://localhost:3000/api/disasters${query}`)
-      .then(response => response.json())
-      .then(data => {
-        const newState = Object.assign({}, this.state)
-        newState.disasters = data
-        this.setState(newState)
-      });
-    }
+    this.fetchData()
   }
 }
 
   render() {
     
     return (
-      <div className="App">
-      <Wrapper disasters={this.state.disasters} states={this.state.states} disaster_types={this.state.disaster_types} handleOnClick={this.handleOnClick}/>
-
+      <div className="container-fluid" style={{padding: 0}}>
+    
+        <div className="fixed-top text-center control-panel">
+          <Dashboard disasters={this.state.disasters} states={this.state.states} disaster_types={this.state.disaster_types} handleOnClick={this.handleOnClick} filterYear={this.state.filterYear} filterDisaster={this.state.filterDisaster} clearFilters={this.clearFilters}/>
+        </div>
+    
+        <Map disasters={this.state.disasters} states={this.state.states} disaster_types={this.state.disaster_types}/>
+            
+        
     </div>
     );
   }
