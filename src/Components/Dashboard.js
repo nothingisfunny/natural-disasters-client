@@ -7,9 +7,21 @@ function formatDate(string){
   return `${months[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()}`
 }
 
+
 export default class Dashboard extends Component{
 
+
+
   render(){
+    const get_states = this.props.states.map((state)=>{return state.name})
+    const states = this.props.states.map((state)=>{
+      return(
+            <p className="dropdown-item">{state.name}</p>
+        )
+    })
+
+
+    
     const disasters = this.props.disasters.map((disaster, index) => {
       return(
         <div>
@@ -24,8 +36,19 @@ export default class Dashboard extends Component{
     return(
 
       <div>
+      
         <h4 style={{color: "white"}}>Natural Disasters USA</h4>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+          </button>
+           <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+          {states}
+          </div>
+        </div>
+          
         {disasters}
+
       </div>
 
     )

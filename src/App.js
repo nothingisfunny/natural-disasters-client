@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import ReactMapboxGl, { Marker } from "react-mapbox-gl";
 import Wrapper from './Components/Wrapper'
 import test_data from './test_data.json'
 import states from './states.json'
-import disaster_icons from './disaster_icons.json'
-
-
-
+import disaster_types from './disaster_types.json'
 
 
 class App extends Component {
@@ -17,14 +12,14 @@ class App extends Component {
     this.state = {
       disasters: test_data,
       states: states,
-      disaster_icons: disaster_icons
+      disaster_types: disaster_types
     }
   }
 
   render() {
     return (
       <div className="App">
-      <Wrapper disasters={this.state.disasters} states ={this.state.states} disaster_icons={this.state.disaster_icons}/>
+      <Wrapper disasters={this.state.disasters} states={this.state.states} disaster_types={this.state.disaster_types}/>
 
     </div>
     );

@@ -14,13 +14,14 @@ class Wrapper extends Component{
   }
 
   render(){
+    
     let markers;
     if(this.props.disasters && this.props.states){
       markers = this.props.disasters.map((disaster, key) =>{
       const state = this.props.states.find((element)=>{
         if(element.name === disaster.state){return element}
         })
-      const icon = this.props.disaster_icons.find((element)=>{
+      const icon = this.props.disaster_types.find((element)=>{
         if(element.name === disaster.incidentType){return element}
       })
       console.log(icon)
@@ -37,7 +38,7 @@ class Wrapper extends Component{
     <div className="container-fluid">
       <div className="row" style={{minHeight: "100vh" }}>
         <div className="col-3" style={{backgroundColor: "black", overflow: "scroll!important"}}>
-          <Dashboard disasters={this.props.disasters}/>
+          <Dashboard disasters={this.props.disasters} states={this.props.states} disaster_types={this.props.disaster_types}/>
 
         </div>
         <div className="col-9" style={{backgroundColor: "grey", padding: "0"}}>
