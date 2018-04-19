@@ -14,7 +14,7 @@ class Wrapper extends Component{
   }
 
   render(){
-    
+
     let markers;
     if(this.props.disasters && this.props.states){
       markers = this.props.disasters.map((disaster, key) =>{
@@ -38,7 +38,7 @@ class Wrapper extends Component{
     <div className="container-fluid">
       <div className="row" style={{minHeight: "100vh" }}>
         <div className="col-3" style={{backgroundColor: "black", overflow: "scroll!important"}}>
-          <Dashboard disasters={this.props.disasters} states={this.props.states} disaster_types={this.props.disaster_types}/>
+          <Dashboard disasters={this.props.disasters} states={this.props.states} disaster_types={this.props.disaster_types} handleOnClick={this.props.handleOnClick}/>
 
         </div>
         <div className="col-9" style={{backgroundColor: "grey", padding: "0"}}>
