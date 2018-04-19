@@ -45,6 +45,7 @@ class App extends Component {
   componentDidMount(){
       console.log("im rerendering")
   }
+
   componentDidUpdate(prevProps, prevState) {
   // only update chart if the data has changed
   if (prevState.filterDisaster !== this.state.filterDisaster || prevState.filterYear !== this.state.filterYear ) {
@@ -55,8 +56,9 @@ class App extends Component {
       fetch(`http://localhost:3000/api/disasters${query}`)
       .then(response => response.json())
       .then(data => {
-        
-        this.setState({ disasters: data})
+        const newState = Object.assign({}, this.state)
+        newState.disasters = data
+        this.setState(newState)
       });
     }
   }

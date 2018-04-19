@@ -15,13 +15,14 @@ for (var i = 1953; i <= 2018; i++) {
 
 export default class Dashboard extends Component{
 
-
+  componentDidMount(){
+    console.log("mounted")
+  }
   render(){
    
     const disaster_types = this.props.disaster_types.map((disaster, index)=>{
       return(
           <option key={index}>{disaster.name}</option>
-            
         )
     })
 

@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
-import ReactMapboxGl, { Popup, Marker} from "react-mapbox-gl";
+// import ReactMapboxGl, { Popup, Marker, NavigationControl} from "react-mapbox-gl";
+import MapGL, {Marker, Popup} from 'react-map-gl';
 import Dashboard from './Dashboard'
-
-const Map = ReactMapboxGl({ accessToken: 'pk.eyJ1Ijoibm90aGluZ2lzZnVubnkiLCJhIjoiY2pnMnp3Y3F6NjlweDJ3bWQ2ZXdzZnpnZSJ9.hRyi0M7G-rtEMFYOhNTp-g' });
-
-
+import Map from './Map'
+import CityPin from './CityPin'
 
 class Wrapper extends Component{
   //map amount of incidents by state
@@ -16,7 +15,6 @@ class Wrapper extends Component{
 
 let markers = [];
 
-if(this.props.disasters.length !== 0){
     this.props.disasters.map((dis) => {
     if(stateIncidents[dis.state]){
       if(!stateIncidents[dis.state][dis.incidentType]){
@@ -31,35 +29,34 @@ if(this.props.disasters.length !== 0){
   }) 
 
 
-  Object.keys(stateIncidents).map((key) =>{
-    //find corresponding state
-    let state = this.props.states.find((element)=>{
-      if(element.name === key){return element}
-    })
-
-    let marker = Object.keys(stateIncidents[key]).map((incident)=>{
-      const value = stateIncidents[key][incident]
-      //find corresponding icon
-      const icon = this.props.disaster_types.find((element)=>{
-        if(element.name === incident){return element}
+    Object.keys(stateIncidents).map((key) =>{
+      //find corresponding state
+      let state = this.props.states.find((element)=>{
+        if(element.name === key){return element}
       })
-      //return the marker
-      return(
-        <div>
-          <Marker coordinates={state.coordinates} anchor="bottom">
-            <img src={icon.imgUrl} style={{height: '20px'}}/>
-            <p style={{color: "white"}}>{value} incident(s)</p>
-          </Marker>
-        </div>
-      )
 
+      let marker = Object.keys(stateIncidents[key]).map((incident)=>{
+        const value = stateIncidents[key][incident]
+        //find corresponding icon
+        const icon = this.props.disaster_types.find((element)=>{
+          if(element.name === incident){return element}
+        })
+        //return the marker
+       return(
+          <div>
+            <Marker longitude={state.longitude} latitude={state.latitude}>
+              <CityPin img={icon.imgUrl}/>
+            </Marker>
+          </div>
+        )
+
+
+      })
+
+      markers.push(marker)
+      
     })
 
-    markers.push(marker)
-
-  })
-
-}
 
 
     return(
@@ -70,20 +67,9 @@ if(this.props.disasters.length !== 0){
 
         </div>
         <div className="col-10" style={{backgroundColor: "grey", padding: "0"}}>
-          <Map 
-      style="mapbox://styles/mapbox/dark-v9"
-      zoom ={[2.600019725398168]}
-      center={[-90.36957574368233, 40.732480262447524]}
-  containerStyle={{
-    height: "100vh",
-    width: "100vw",
-  }}>
-  
-  }
-
-  {markers}
-    
-</Map>
+          <Map markers={markers}/>
+            
+          
         </div>
       </div>
     </div>
