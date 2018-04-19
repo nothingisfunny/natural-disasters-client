@@ -24,10 +24,9 @@ class App extends Component {
     console.log("value selected")
     let newState = {}
     newState[e.target.name] = e.target[e.target.selectedIndex].value
-      this.setState(
-        newState
-      )
-
+    this.setState(
+      newState
+    )
   }
 
   createQuery(year = "", disaster = ""){
@@ -46,12 +45,13 @@ class App extends Component {
   componentDidMount(){
       console.log("im rerendering")
   }
-
-
-  render() {
+  componentDidUpdate(prevProps, prevState) {
+  // only update chart if the data has changed
+  if (prevState.filterDisaster !== this.state.filterDisaster || prevState.filterYear !== this.state.filterYear ) {
     console.log(this.state.filterYear, this.state.filterDisaster)
     const query = this.createQuery(this.state.filterYear, this.state.filterDisaster)
     if(this.state.filterYear !== "" || this.state.filterDisaster !== ""){
+      console.log('fetching')
       fetch(`http://localhost:3000/api/disasters${query}`)
       .then(response => response.json())
       .then(data => {
@@ -59,6 +59,11 @@ class App extends Component {
         this.setState({ disasters: data})
       });
     }
+  }
+}
+
+  render() {
+    
     return (
       <div className="App">
       <Wrapper disasters={this.state.disasters} states={this.state.states} disaster_types={this.state.disaster_types} handleOnClick={this.handleOnClick}/>
@@ -69,3 +74,6 @@ class App extends Component {
 }
 
 export default App;
+
+
+
