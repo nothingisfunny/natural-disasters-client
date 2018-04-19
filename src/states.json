@@ -2,6 +2,7 @@
   {"name": "AL", "coordinates": [ -86.791130, 32.806671]},
   {"name": "AK", "coordinates": [-152.404419, 61.370716]},
   {"name": "AZ", "coordinates": [-111.431221, 33.729759]},
+  {"name": "AS", "coordinates": [-170.6950, -14.3064]},
   {"name": "AR", "coordinates": [-92.373123, 34.969704]},
   {"name": "CA", "coordinates": [-119.681564, 36.116203]},
   {"name": "CO", "coordinates": [-105.311104, 39.059811]},
@@ -12,6 +13,8 @@
   {"name": "GA", "coordinates": [-83.643074, 33.040619]},
   {"name": "HI", "coordinates": [-157.498337, 21.094318]},
   {"name": "IA", "coordinates": [-93.210526, 42.011539]},
+  {"name": "ID", "coordinates": [-116.999939, 46.731705]},
+  {"name": "IL", "coordinates": [-87.623177, 41.881832]},
   {"name": "IN", "coordinates": [-86.258278, 39.849426]},
   {"name": "KS", "coordinates": [-96.726486, 38.526600]},
   {"name": "KY", "coordinates": [-84.670067, 37.668140]},
@@ -48,8 +51,13 @@
   {"name": "WV", "coordinates": [-80.954453, 38.491226]},
   {"name": "WI", "coordinates": [-89.616508, 44.268543]},
   {"name": "WY", "coordinates": [-107.302490, 42.755966]},
-  {"name": "AG", "coordinates": [-80.954453, 38.491226]},
-  {"name": "BC", "coordinates": [-89.616508, 44.268543]},
-  {"name": "BS", "coordinates": [-107.302490, 42.755966]}
+  {"name": "GU", "coordinates": [144.793732, 13.444304]},
+  {"name": "MP", "coordinates": [145.5563, 14.8512]},
+  {"name": "PR", "coordinates": [-66.664513, 18.200178]},
+  {"name": "VI", "coordinates": [-64.9167, 18.3333]},
+  {"name": "FM", "coordinates": [158.2151, 6.8875]},
+  {"name": "MH", "coordinates": [171.2667, 7.0667]},
+  {"name": "PW", "coordinates": [ 134.4667, 7.3500]}
 ]
+
 

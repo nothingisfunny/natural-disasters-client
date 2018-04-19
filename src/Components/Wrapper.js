@@ -24,7 +24,7 @@ class Wrapper extends Component{
       const icon = this.props.disaster_types.find((element)=>{
         if(element.name === disaster.incidentType){return element}
       })
-      console.log(icon)
+      
        return(
       <Marker
   coordinates={state.coordinates}
@@ -37,11 +37,11 @@ class Wrapper extends Component{
     return(
     <div className="container-fluid">
       <div className="row" style={{minHeight: "100vh" }}>
-        <div className="col-3" style={{backgroundColor: "black", overflow: "scroll!important"}}>
+        <div className="col-2" style={{backgroundColor: "black", overflow: "scroll!important"}}>
           <Dashboard disasters={this.props.disasters} states={this.props.states} disaster_types={this.props.disaster_types} handleOnClick={this.props.handleOnClick}/>
 
         </div>
-        <div className="col-9" style={{backgroundColor: "grey", padding: "0"}}>
+        <div className="col-10" style={{backgroundColor: "grey", padding: "0"}}>
           <Map 
       style="mapbox://styles/mapbox/dark-v9"
       zoom ={[2.600019725398168]}

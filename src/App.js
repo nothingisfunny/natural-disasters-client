@@ -21,19 +21,44 @@ class App extends Component {
   }
 
   handleOnClick(e){
+    console.log("value selected")
     let newState = {}
-    newState[e.target.className.split(" ")[1]] = e.target.innerText
+    newState[e.target.name] = e.target[e.target.selectedIndex].value
       this.setState(
         newState
       )
-  }
-  componentDidMount(){
-    fetch("http://localhost:3000/api/disasters")
-      .then(response => response.json())
-      .then(data => this.setState({ disasters: data}));
+
   }
 
+  createQuery(year = "", disaster = ""){
+    let query = ""
+    if(year !== "" && disaster !== ""){
+      query = `?year=${year}&disaster=${disaster}`
+    }else if(year !== ""){
+      query = `?year=${year}`
+    }else if(disaster !== ""){
+      disaster.split(" ").join("%20")
+      query = `?disaster=${disaster}`
+    }
+    return query 
+  }
+
+  componentDidMount(){
+      console.log("im rerendering")
+  }
+
+
   render() {
+    console.log(this.state.filterYear, this.state.filterDisaster)
+    const query = this.createQuery(this.state.filterYear, this.state.filterDisaster)
+    if(this.state.filterYear !== "" || this.state.filterDisaster !== ""){
+      fetch(`http://localhost:3000/api/disasters${query}`)
+      .then(response => response.json())
+      .then(data => {
+        
+        this.setState({ disasters: data})
+      });
+    }
     return (
       <div className="App">
       <Wrapper disasters={this.state.disasters} states={this.state.states} disaster_types={this.state.disaster_types} handleOnClick={this.handleOnClick}/>

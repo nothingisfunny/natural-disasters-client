@@ -7,21 +7,27 @@ function formatDate(string){
   return `${months[date.getMonth()]} ${date.getDay()}, ${date.getFullYear()}`
 }
 
+const yearOptions = [];
+for (var i = 1953; i <= 2018; i++) {
+   yearOptions.push(i);
+}
+
 
 export default class Dashboard extends Component{
 
 
   render(){
    
-    const disaster_types = this.props.disaster_types.map((disaster)=>{
+    const disaster_types = this.props.disaster_types.map((disaster, index)=>{
       return(
-            <p className="dropdown-item filterDisaster" onClick={(e)=>this.props.handleOnClick(e)}>{disaster.name}</p>
+          <option key={index}>{disaster.name}</option>
+            
         )
     })
 
-     const years = this.props.disasters.map((disaster)=>{
+     const years = yearOptions.map((year, index)=>{
       return(
-            <p className="dropdown-item filterYear" onClick={(e)=>this.props.handleOnClick(e)}>{disaster.fyDeclared}</p>
+          <option key={index}>{year}</option>
         )
     })
 
@@ -29,11 +35,11 @@ export default class Dashboard extends Component{
     
     const disasters = this.props.disasters.map((disaster, index) => {
       return(
-        <div>
-          <p style={{color: "white"}} key={index}>
+        <div key={index}>
+          <p style={{color: "white"}} >
             {disaster.incidentType} in {disaster.state}
           </p>
-          <p>{formatDate(disaster.declarationDate)}</p>
+          <p key={index}>{formatDate(disaster.declarationDate)}</p>
         </div>
         )
     })
@@ -41,31 +47,21 @@ export default class Dashboard extends Component{
     return(
 
       <div>
-      
         <h4 style={{color: "white"}}>Natural Disasters USA</h4>
         <div className="row">
-        <div className="dropdown">
-          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Disaster
-          </button>
-           <div className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-           <p className="dropdown-item filterDisaster" onClick={(e)=>this.props.handleOnClick(e)}>Clear Filter</p>
-          {disaster_types}
-          </div>
+          <p>Select Disaster</p>
+          <select className="custom-select" name="filterDisaster" onChange={(e)=>this.props.handleOnClick(e)}>
+            <option selected> </option>
+            {disaster_types}
+          </select>
+          <p>Select a Year</p>
+          <select className="custom-select" name="filterYear" onChange={(e)=>this.props.handleOnClick(e)}>
+            <option selected> </option>
+            {years}
+          </select>
+        
         </div>
-        <div className="dropdown">
-          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Year
-          </button>
-           <div className="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-           <p className="dropdown-item filterDisaster" onClick={(e)=>this.props.handleOnClick(e)}>Clear Filter</p>
-          {years}
-          </div>
-        </div>
-        </div>
-          
         {disasters}
-
       </div>
 
     )
