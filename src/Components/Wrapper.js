@@ -7,55 +7,10 @@ import CityPin from './CityPin'
 
 class Wrapper extends Component{
   //map amount of incidents by state
- 
 
   render(){
 
-  const stateIncidents = {}
 
-let markers = [];
-
-    this.props.disasters.map((dis) => {
-    if(stateIncidents[dis.state]){
-      if(!stateIncidents[dis.state][dis.incidentType]){
-        stateIncidents[dis.state][dis.incidentType] = 1
-      }else{
-        stateIncidents[dis.state][dis.incidentType] += 1
-      }
-    }else{
-      stateIncidents[dis.state] = {}
-      stateIncidents[dis.state][dis.incidentType] = 1
-    }
-  }) 
-
-
-    Object.keys(stateIncidents).map((key) =>{
-      //find corresponding state
-      let state = this.props.states.find((element)=>{
-        if(element.name === key){return element}
-      })
-
-      let marker = Object.keys(stateIncidents[key]).map((incident)=>{
-        const value = stateIncidents[key][incident]
-        //find corresponding icon
-        const icon = this.props.disaster_types.find((element)=>{
-          if(element.name === incident){return element}
-        })
-        //return the marker
-       return(
-          <div>
-            <Marker longitude={state.longitude} latitude={state.latitude}>
-              <CityPin img={icon.imgUrl}/>
-            </Marker>
-          </div>
-        )
-
-
-      })
-
-      markers.push(marker)
-      
-    })
 
 
 
@@ -67,7 +22,7 @@ let markers = [];
 
         </div>
         <div className="col-10" style={{backgroundColor: "grey", padding: "0"}}>
-          <Map markers={markers}/>
+          <Map disasters={this.props.disasters} states={this.props.states} disaster_types={this.props.disaster_types}/>
             
           
         </div>
