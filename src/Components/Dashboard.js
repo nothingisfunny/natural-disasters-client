@@ -32,7 +32,7 @@ export default class Dashboard extends Component{
     return(
 
       <div>
-        <h4 style={{color: "white"}}>Natural Disasters USA</h4>
+        <h4 style={{color: "white"}}>USA Natural Disasters</h4>
         <form className="form">
           
             <div className="form-group">
