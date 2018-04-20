@@ -62,6 +62,9 @@ export default class Map extends Component {
         closeOnClick={true}>
         <h4>{this.state.popupInfo.state.fullName}</h4>
         <p>{this.state.popupInfo.incidentNumber} {this.state.popupInfo.disaster} incident(s)</p>
+        <div class="text-center">
+        <img src={this.state.popupInfo.icon.imgUrl} style={{height: "50px"}} />
+        </div>
       </Popup>
 
       )
@@ -99,7 +102,7 @@ let markers = [];
         //find corresponding icon
         const icon = this.props.disaster_types.find((element)=> element.name === incident)
         
-        const popupInfo = {state: state, disaster: incident, incidentNumber: incidentNumber}
+        const popupInfo = {state: state, disaster: incident, incidentNumber: incidentNumber, icon: icon}
        
 
         //return the marker
