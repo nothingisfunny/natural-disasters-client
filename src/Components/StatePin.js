@@ -8,7 +8,6 @@ export default class CityPin extends PureComponent {
     
     const height = this.props.incidentNumber*0.07 + 20
     return (
-
       <img src={this.props.img} style={{height: `${height}px`}} onClick={this.props.onClick}/>
     );
   }

@@ -39,19 +39,19 @@ export default class Dashboard extends Component{
             <label>Select a Disaster</label>
               <div className="form-item">
                 <select className="custom-select" value={this.props.filterDisaster} name="filterDisaster" onChange={(e) => this.props.handleOnClick(e)}>
-                  <option value=" "></option>
+                  <option value=""></option>
                   {disaster_types}
                 </select>
               </div>
               <label>Select a Year</label>
               <div className="form-item">
                 <select className="custom-select" value={this.props.filterYear} name="filterYear" onChange={(e) => this.props.handleOnClick(e)}>
-                  <option value=" "></option>
+                  <option value=""></option>
                   {years}
 
                 </select> 
               </div>
-              <button className="btn btn-primary" onClick={(e)=>this.props.clearFilters(e)}>Clear Filters</button> 
+              <button className="btn btn-danger" onClick={(e)=>this.props.clearFilters(e)}>Clear Filters</button> 
             </div>
           
           </form>

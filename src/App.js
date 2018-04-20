@@ -53,12 +53,14 @@ class App extends Component {
   }
 
   fetchData(){
+
   const query = this.createQuery(this.state.filterYear, this.state.filterDisaster)
     if(this.state.filterYear !== "" || this.state.filterDisaster !== ""){
       console.log('fetching')
-      fetch(`http://localhost:3000/api/disasters${query}`)
+      fetch(`https://natural-disasters-api.herokuapp.com/api/disasters${query}`)
       .then(response => response.json())
       .then(data => {
+        console.log(data)
         const newState = Object.assign({}, this.state)
         newState.disasters = data
         this.setState(newState)

@@ -91,16 +91,14 @@ let markers = [];
 
     Object.keys(stateIncidents).map((key) =>{
       //find corresponding state
-      let state = this.props.states.find((element)=>{
-        if(element.name === key){return element}
-      })
+      let state = this.props.states.find((element)=> element.name === key)
+    
 
       let marker = Object.keys(stateIncidents[key]).map((incident, index)=>{
         const incidentNumber = stateIncidents[key][incident]
         //find corresponding icon
-        const icon = this.props.disaster_types.find((element)=>{
-          if(element.name === incident){return element}
-        })
+        const icon = this.props.disaster_types.find((element)=> element.name === incident)
+        
         const popupInfo = {state: state, disaster: incident, incidentNumber: incidentNumber}
        
 
