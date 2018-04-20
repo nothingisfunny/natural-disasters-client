@@ -44,11 +44,12 @@ class App extends Component {
   }
 
   clearFilters(e){
+
     e.preventDefault()
     this.setState({
       filterYear: "",
       filterDisaster: "",
-      disaster: []
+      disasters: []
     })
   }
 
